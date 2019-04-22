@@ -24,9 +24,7 @@ export default class Draggable {
         );
     }
 
-    onMouseUp (e) {
-        this.start = e;
-
+    onMouseUp () {
         document.removeEventListener('mousemove', this.onMouseMove);
         document.removeEventListener('mouseup', this.onMouseUp);
     }
