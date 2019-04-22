@@ -1,6 +1,8 @@
 export default class Item {
     constructor (tagName) {
         this.element = document.createElement(tagName);
+        this.previousX = 0
+        this.previousY = 0
         this._subs = [];
     }
 
@@ -16,6 +18,12 @@ export default class Item {
     unsubscribe(event, fn) {
         //todo: remove from subs list
         this.element.removeEventListener(event, fn);
+    }
+
+    setPreviousPosition() {
+        const oldTransform= this.element.style.transform.replace(/[(px,)]/g, ' ').split(/\s+/g)
+        this.previousX = +oldTransform[1]
+        this.previousY = +oldTransform[2]
     }
 
     setPosition(x, y) {
