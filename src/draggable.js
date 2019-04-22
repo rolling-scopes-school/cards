@@ -9,18 +9,20 @@ export default class Draggable {
     }
 
     onMouseDown(e) {
-        if (!this.start) {
-            this.start = e;
-        }
+        this.start = e;
+
+        const oldTransform= this.item.element.style.transform.replace(/[(px,)]/g, ' ').split(/\s+/g)
+        this.oldX = +oldTransform[1]
+        this.oldY = +oldTransform[2]
 
         document.addEventListener('mousemove', this.onMouseMove);
         document.addEventListener('mouseup', this.onMouseUp);
     }
 
-    onMouseMove({ clientX, clientY }) {
+    onMouseMove(e) {
         this.item.setPosition(
-            clientX - this.start.clientX,
-            clientY - this.start.clientY,
+            this.oldX ? this.oldX + e.clientX - this.start.clientX : e.clientX - this.start.clientX,
+            this.oldY ? this.oldY + e.clientY - this.start.clientY : e.clientY - this.start.clientY
         );
     }
 
