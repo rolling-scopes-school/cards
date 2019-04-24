@@ -1,6 +1,8 @@
 export default class Item {
     constructor (tagName) {
         this.element = document.createElement(tagName);
+        this.curentAxisX = 0
+        this.curentAxisY = 0
         this._subs = [];
     }
 
@@ -18,7 +20,16 @@ export default class Item {
         this.element.removeEventListener(event, fn);
     }
 
+    setAxis() {
+        if (this.previousY && this.previousY) {
+            this.curentAxisX = this.previousX
+            this.curentAxisY = this.previousY
+        }
+    }
+
     setPosition(x, y) {
+        this.previousX = x
+        this.previousY = y
         this.element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     }
 }
